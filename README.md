@@ -1,4 +1,4 @@
-# Autodesk Parameters API Documentation Postman Collection
+# Autodesk Parameters API Postman Collection
 
 This repository contains the following API collections which could help you understand the usage of Autodesk Parameters APIs:
 

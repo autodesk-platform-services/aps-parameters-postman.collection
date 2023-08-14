@@ -1,9 +1,9 @@
 # Autodesk Parameters API List
 
 ![Platforms](https://img.shields.io/badge/Web-Windows|MacOS-lightgray.svg)
-[![oAuth2](https://img.shields.io/badge/Authentication-v1-green.svg)](http://developer.autodesk.com/)
+[![oAuth2](https://img.shields.io/badge/Authentication-v2-green.svg)](http://developer.autodesk.com/)
 [![Data-Management](https://img.shields.io/badge/Data%20Management-v2-green.svg)](http://developer.autodesk.com/)
-[![Autodesk-Parameters](https://img.shields.io/badge/Autodesk%20Parameters-v1.1-green.svg)](http://developer.autodesk.com/)
+[![Autodesk-Parameters](https://img.shields.io/badge/Autodesk%20Parameters-v1-green.svg)](http://developer.autodesk.com/)
 
 [![Postman](https://img.shields.io/badge/Postman-v8-orange.svg)](https://www.getpostman.com/)
 
@@ -16,7 +16,6 @@ This folder contains a Postman Collection that includes all the current Autodesk
 
 
 ## Instructions to run the Postman collection are as below:
-
 
 ### Prerequisites
 - The postman collection mainly lists all the Parameters APIs.
