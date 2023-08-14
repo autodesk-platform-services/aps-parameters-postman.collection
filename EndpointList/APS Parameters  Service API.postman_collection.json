@@ -1,0 +1,1611 @@
+{
+	"info": {
+		"_postman_id": "f138fa0a-4d43-4b65-aa91-715b93dcd83f",
+		"name": "APS Parameters  Service API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Parameters - Parameters: list Parameter Groups",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseBody = JSON.parse(responseBody);",
+									"pm.environment.set(\"group_id\", responseBody.results[0].id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"groups"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters - Parameters: Get parameters Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups/:group_id",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"groups",
+								":group_id"
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters - Update Parameters Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"My 3nd Sample Group\",\n    \"description\": \"This is my 3st sample group\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups/:group_id",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"groups",
+								":group_id"
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Parameters collections",
+			"item": [
+				{
+					"name": "Parameters - Get Collections",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var collection_title = pm.environment.get(\"collection_title\");",
+									"var responseBody = JSON.parse(responseBody);",
+									"console.log(responseBody.results);",
+									"",
+									"if ( responseBody.results.length === 0){",
+									"    console.log(\"Can not find collection: \" + collection_title)",
+									"    return;",
+									"}else if( collection_title == null ){",
+									"    console.log(\"Collection title is not set, use the 1st collection by defalut\");",
+									"    pm.environment.set(\"collection_id\", responseBody.results[0].id);",
+									"}",
+									"else{",
+									"    var collection = responseBody.results.find( item => {",
+									"        return item.title == collection_title;",
+									"    })",
+									"    if( collection == null ){",
+									"        console.log(\"Failed to get the collection of\" + collection_title);",
+									"    } else {",
+									"        console.log(\"Get the collection of: \" + collection_title);",
+									"        pm.environment.set(\"collection_id\", collection.id);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups/:group_id/collections?offset=0&limit=10",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"groups",
+								":group_id",
+								"collections"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters - Get a Parameter Collection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups/:group_id/collections/:collection_id",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"groups",
+								":group_id",
+								"collections",
+								":collection_id"
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								},
+								{
+									"key": "collection_id",
+									"value": "{{collection_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters - Update a Parameter Collection",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Default Collection\",\n    \"description\": \"Default Collection\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups/:group_id/collections/:collection_id",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"groups",
+								":group_id",
+								"collections",
+								":collection_id"
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								},
+								{
+									"key": "collection_id",
+									"value": "{{collection_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Parameters",
+			"item": [
+				{
+					"name": "Parameters - List  all parameters in the collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseBody = JSON.parse(responseBody);",
+									"pm.environment.set(\"parameter_id\", responseBody.results[0].id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups/:group_id/collections/:collection_id/parameters",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"groups",
+								":group_id",
+								"collections",
+								":collection_id",
+								"parameters"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"disabled": true
+								},
+								{
+									"key": "ids",
+									"value": "{{parameter_id}}",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								},
+								{
+									"key": "collection_id",
+									"value": "{{collection_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters - Get  a parameter definition",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/parameters/:parameter_id",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"parameters",
+								":parameter_id"
+							],
+							"variable": [
+								{
+									"key": "parameter_id",
+									"value": "{{parameter_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters - Create a Parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseBody = JSON.parse(responseBody);",
+									"pm.environment.set(\"parameter_id\", responseBody.results[0].id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\":\"a25628e6737f5e49b9754b648e4467d9\",\r\n        \"name\": \"Parameter Revit Family Sample\",\r\n        \"dataTypeId\": \"autodesk.revit.category.family:doors-1.0.0\",\r\n        \"readOnly\": false\r\n    }\r\n]"
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups/:group_id/collections/:collection_id/parameters",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"groups",
+								":group_id",
+								"collections",
+								":collection_id",
+								"parameters"
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								},
+								{
+									"key": "collection_id",
+									"value": "{{collection_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters - Update the Parameter",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": \"{{parameter_id}}\",\r\n        \"description\": \"This is a new description\",\r\n        \"metadata\": [\r\n            {\r\n                \"id\": \"isHidden\",\r\n                \"value\": true\r\n            },\r\n            {\r\n                \"id\": \"isArchived\",\r\n                \"value\": true\r\n            },\r\n            {\r\n                \"id\": \"instanceTypeAssociation\",\r\n                \"value\": \"TYPE\"\r\n            },\r\n            {\r\n                \"id\": \"groupBindingId\",\r\n                \"value\": \r\n                    \"{{classification_group_binding_id}}\"\r\n            }\r\n        ]\r\n    }\r\n]"
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups/:group_id/collections/:collection_id/parameters",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"groups",
+								":group_id",
+								"collections",
+								":collection_id",
+								"parameters"
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								},
+								{
+									"key": "collection_id",
+									"value": "{{collection_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters - Render Parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(207);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"sourceParameterValue\": 100,\r\n        \"sourceUnitOrSymbolId\": \"autodesk.unit.symbol:cm-1.0.1\",\r\n        \"targetUnitOrSymbolId\": \"autodesk.unit.symbol:ft-1.0.1\",\r\n        \"numberFormat\": \"FIXED_POINT\",\r\n        \"precision\": 14\r\n    },\r\n    {\r\n        \"sourceParameterValue\": 100,\r\n        \"sourceUnitOrSymbolId\": \"autodesk.unit.symbol:cm-1.0.1\",\r\n        \"targetUnitOrSymbolId\": \"autodesk.unit.symbol:ft-1.0.1\",\r\n        \"numberFormat\": \"FRACTION\",\r\n        \"precision\": 10\r\n    },\r\n    {\r\n        \"sourceParameterValue\": 100,\r\n        \"sourceUnitOrSymbolId\": \"autodesk.unit.symbol:cm-1.0.1\",\r\n        \"targetUnitOrSymbolId\": \"autodesk.unit.unit:1ToRatio-1.0.1\",\r\n        \"numberFormat\": \"FRACTION\",\r\n        \"precision\": 4\r\n    },\r\n    {\r\n        \"sourceParameterValue\": 188,\r\n        \"sourceUnitOrSymbolId\": \"autodesk.unit.symbol:cm-1.0.1\",\r\n        \"targetUnitOrSymbolId\": \"autodesk.unit.symbol:ft-1.0.1\",\r\n        \"numberFormat\": \"FIXED_POINT\",\r\n        \"precision\": 4\r\n    },\r\n    {\r\n        \"sourceParameterValue\": 188,\r\n        \"sourceUnitOrSymbolId\": \"autodesk.unit.unit:centimeters-1.0.1\",\r\n        \"targetUnitOrSymbolId\": \"autodesk.unit.symbol:ft-1.0.1\",\r\n        \"numberFormat\": \"FIXED_POINT\",\r\n        \"precision\": 4\r\n    },\r\n    {\r\n        \"sourceParameterValue\": 188,\r\n        \"sourceUnitOrSymbolId\": \"autodesk.unit.unit:centimeters-1.0.1\",\r\n        \"targetUnitOrSymbolId\": \"autodesk.unit.unit:inches-1.0.1\",\r\n        \"numberFormat\": \"FIXED_POINT\",\r\n        \"precision\": 4\r\n    },\r\n    {\r\n        \"sourceParameterValue\": 188,\r\n        \"sourceUnitOrSymbolId\": \"autodesk.unit.unit:centimeters-1.0.1\",\r\n        \"targetUnitOrSymbolId\": \"autodesk.unit.symbol:metersAndCentimeters-1.0.0\",\r\n        \"numberFormat\": \"FIXED_POINT\",\r\n        \"precision\": 4\r\n    },\r\n    {\r\n        \"sourceParameterValue\": 188,\r\n        \"sourceUnitOrSymbolId\": \"autodesk.unit.unit:centimeters-1.0.1\",\r\n        \"targetUnitOrSymbolId\": \"autodesk.unit.symbol:inchDoubleQuote-1.0.1\",\r\n        \"numberFormat\": \"FIXED_POINT\",\r\n        \"precision\": 4\r\n    },\r\n    {\r\n        \"sourceParameterValue\": 188,\r\n        \"sourceUnitOrSymbolId\": \"autodesk.unit.unit:centimeters-1.0.1\",\r\n        \"targetUnitOrSymbolId\": \"autodesk.unit.unit:feet-1.0.1\",\r\n        \"numberFormat\": \"FRACTION\",\r\n        \"precision\": 4\r\n    }\r\n]"
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/parameters:render",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"parameters:render"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Parameters - Search and filter",
+			"item": [
+				{
+					"name": "Parameters - Search parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// var responseBody = JSON.parse(responseBody);",
+									"// pm.environment.set(\"parameter_id\", responseBody.results[0].core.typeId);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"searchedText\": \"\",\r\n        \"dataTypeIds\":[\"autodesk.revit.spec:familyType-1.0.0\"],\r\n        \"isArchived\": false,\r\n        \"sort\": \"NAME_ASCENDING\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups/:group_id/collections/:collection_id/parameters:search",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"groups",
+								":group_id",
+								"collections",
+								":collection_id",
+								"parameters:search"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								},
+								{
+									"key": "collection_id",
+									"value": "{{collection_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters - Search Parameters Indices",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"searchedText\": \"Sample\",\r\n    \"isHidden\": false,\r\n    \"isInstance\":false,\r\n    \"isReadOnly\": false,\r\n    \"isArchived\":false\r\n    }"
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups/:group_id/collections/:collection_id/parameters:search-indices",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"groups",
+								":group_id",
+								"collections",
+								":collection_id",
+								"parameters:search-indices"
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								},
+								{
+									"key": "collection_id",
+									"value": "{{collection_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Labels",
+			"item": [
+				{
+					"name": "Labels - List all Labels",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseBody = JSON.parse(responseBody);",
+									"if(responseBody.results.length === 0){",
+									"    console.info(\"No labels in the account\");",
+									"}else{",
+									"    pm.environment.set(\"label_id\", responseBody.results[0].id);",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/labels?offset=0",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"labels"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Labels - Create a Label",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"name\": \"AU Demo Label -11\",\n        \"description\": \"AU Demo Label\"\n    },\n    {\n        \"name\": \"AU Demo Label -12\",\n        \"description\": \"AU Demo Label\"\n    }\n]"
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/labels",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"labels"
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Labels - Get a Label",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/labels/:labelId",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"labels",
+								":labelId"
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "labelId",
+									"value": "{{label_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Label: Update a label",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"AU Demo Label -5\",\r\n    \"description\": \"List all the OmniClass parameters\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:accountId/labels/:labelId",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId",
+								"labels",
+								":labelId"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "labelId",
+									"value": "{{label_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Labels: - Delete a label",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:accountId/labels/:labelId",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId",
+								"labels",
+								":labelId"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "labelId",
+									"value": "{{label_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Attach Labels to Parameters",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"labelIds\": [\"{{label_id}}\"],\r\n    \"parameterTypeIds\": [\r\n        \"{{parameter_id}}\"\r\n    ]\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:accountId/groups/:group_id/collections/:collectionId/labels:attach",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId",
+								"groups",
+								":group_id",
+								"collections",
+								":collectionId",
+								"labels:attach"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								},
+								{
+									"key": "collectionId",
+									"value": "{{collection_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detach Labels to Parameters",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"labelIds\": [\"{{label_id}}\"],\n    \"parameterTypeIds\": [\n        \"{{parameter_id}}\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:accountId/groups/:group_id/collections/:collectionId/labels:detach",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId",
+								"groups",
+								":group_id",
+								"collections",
+								":collectionId",
+								"labels:detach"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								},
+								{
+									"key": "collectionId",
+									"value": "{{collection_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Classifications",
+			"item": [
+				{
+					"name": "Parameters: List specs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseBody = JSON.parse(responseBody);",
+									"pm.environment.set(\"classification_spec_id\", responseBody.results[0].id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/specs",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"specs"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "200",
+									"disabled": true
+								},
+								{
+									"key": "ids",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters: List Disciplines",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseBody = JSON.parse(responseBody);",
+									"pm.environment.set(\"classification_discipline_id\", responseBody.results[0].id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/disciplines",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"disciplines"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters: List Units",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseBody = JSON.parse(responseBody);",
+									"pm.environment.set(\"classification_unit_id\", responseBody.results[0].id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/units",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"units"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "200",
+									"disabled": true
+								},
+								{
+									"key": "ids",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters: List Groups",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseBody = JSON.parse(responseBody);",
+									"pm.environment.set(\"classification_group_id\", responseBody.results[0].id);",
+									"pm.environment.set(\"classification_group_binding_id\", responseBody.results[0].bindingId);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/classifications/groups",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"classifications",
+								"groups"
+							],
+							"query": [
+								{
+									"key": "filter[bindable]",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameters: list Revit Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseBody = JSON.parse(responseBody);",
+									"pm.environment.set(\"classification_revit_category_id\", responseBody.results[0].id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/classifications/categories",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"classifications",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "filter[bindable]",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Step 1: Reset the environment variables",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.clear();",
+							"",
+							"// Please change the following variables according to your account setting",
+							"// your Forge App key",
+							"pm.environment.set(\"client_id\",     \"your Forge client id\");",
+							"pm.environment.set(\"client_secret\", \"your Forge client secret\");",
+							"",
+							"// Setup your environment variable",
+							"pm.environment.set(\"hub_name\",              \"your hub name\");",
+							"pm.environment.set(\"collection_title\",       \"your collection title\");",
+							"pm.environment.set(\"base_domain\",           \"https://developer.api.autodesk.com/\");",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "VIEW",
+				"header": [],
+				"url": {
+					"raw": "{{base_domain}}/health",
+					"host": [
+						"{{base_domain}}"
+					],
+					"path": [
+						"health"
+					]
+				},
+				"description": "Reset the following environment variables:\n1. Forge Client Key, please change to your Forge Client Id and Secret.\n2. Project name, please change to the correct project name which you want to work with.\n3. Base domain, should be https://developer.api.autodesk.com/ by default.\n4. Segment index, will be used to create multiple budget segments, should be 1 by default."
+			},
+			"response": []
+		},
+		{
+			"name": "Step 2: Reminder, Please setup 3 Legged Token in collection",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "VIEW",
+				"header": [],
+				"url": {
+					"raw": "Just a place holder",
+					"host": [
+						"Just a place holder"
+					]
+				},
+				"description": "Reset the following environment variables:\n1. Forge Client Key, please change to your Forge Client Id and Secret.\n2. Project name, please change to the correct project name which you want to work with.\n3. Base domain, should be https://developer.api.autodesk.com/ by default.\n4. Segment index, will be used to create multiple budget segments, should be 1 by default."
+			},
+			"response": []
+		},
+		{
+			"name": "Step 3: Setup the specified ACC Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// setup the environment variable \"hub_id\" and \"account_id\" with the 1st BIM360 hub",
+							"var responseBody = JSON.parse(responseBody);",
+							"if ( responseBody.data.length === 0){",
+							"    console.log(\"Can not find hub: \" + pm.environment.get(\"hub_name\"))",
+							"    return;",
+							"}else{",
+							"    var hub_id = responseBody.data[0].id;",
+							"    // var account_id = hub_id.split('b.').join(\"\").split('-').join('')",
+							"    console.log(\"find hub id: \" + hub_id + \" of hub: \" + pm.environment.get(\"hub_name\"))",
+							"    pm.environment.set(\"hub_id\", hub_id);",
+							"    // pm.environment.set(\"account_id\", account_id);",
+							"    pm.environment.set(\"account_id\", hub_id.split('b.').join(''));",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{base_domain}}/project/v1/hubs?filter[name]-contains={{hub_name}}",
+					"host": [
+						"{{base_domain}}"
+					],
+					"path": [
+						"project",
+						"v1",
+						"hubs"
+					],
+					"query": [
+						{
+							"key": "filter[name]-contains",
+							"value": "{{hub_name}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "scope",
+				"value": "data:read data:create data:write data:search",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://developer.api.autodesk.com/authentication/v2/token",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://developer.api.autodesk.com/authentication/v2/authorize",
+				"type": "string"
+			},
+			{
+				"key": "tokenType",
+				"value": "Bearer",
+				"type": "string"
+			},
+			{
+				"key": "accessToken",
+				"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIiwicGkuYXRtIjoiN3ozaCJ9.eyJzY29wZSI6WyJkYXRhOndyaXRlIiwiZGF0YTpjcmVhdGUiLCJkYXRhOnJlYWQiXSwiY2xpZW50X2lkIjoiSkFPaTNySEZNTk5pQW9CSWhHQkR1WTZ3TFdzTUFnVGEiLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvYWp3dGV4cDYwIiwianRpIjoiYVBPNDFtcGlRdFpuTGxVVjRwOFV3aFo0UUxlbms5Z0JhNzd0TnRiWndFUFdONXlTVElCS2doemxkbU4weGlLeiIsInVzZXJpZCI6IjRWNFdLUUpHR1E3TiIsImV4cCI6MTY4MjM0ODg1NH0.T5lbuR780kzZv66NO5dBvK67z37ZsRtaRPmZfccx_RQrn7ILwmJAFR7TDrVZibA-gqhkZrN1VQ4l_bTvgXTXtyTQwscixw7fccu35C5JRo8S0c871nEAo22RFfPlAtdV33HoBEOIddp1BNPmB0wOAzpx5tDpR3GiVRvwSl6xUgJHWXgOoITEOVHdsVOySeKxW-Lo2jb2Cb48zASHcXAI4xSL9-MsWsrokyko0KE_Br1Lpf6t0C4v84aHSVpNsA07cjrWmLutaRhne5jk3-QF7XAXoHSYWcJ6iNIU8uB4_xd8Fd-qLamh9gq2p2RVuxy_l0GWWAMhNckGp91KZt4EdA",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "https://www.getpostman.com/oauth2/callback",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "3LO",
+				"type": "string"
+			},
+			{
+				"key": "challengeAlgorithm",
+				"value": "S256",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "authorization_code",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{client_secret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{client_id}}",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
