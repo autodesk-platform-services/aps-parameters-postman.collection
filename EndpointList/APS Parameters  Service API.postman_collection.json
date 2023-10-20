@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "f138fa0a-4d43-4b65-aa91-715b93dcd83f",
+		"_postman_id": "344fabe3-2add-46e8-a174-b0713ac2f714",
 		"name": "APS Parameters  Service API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "942004"
 	},
 	"item": [
 		{
@@ -20,6 +21,7 @@
 									"});",
 									"",
 									"var responseBody = JSON.parse(responseBody);",
+									"// current only one group is supported",
 									"pm.environment.set(\"group_id\", responseBody.results[0].id);",
 									"",
 									""
@@ -153,7 +155,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"My 3nd Sample Group\",\n    \"description\": \"This is my 3st sample group\"\n}",
+							"raw": "{\n    \"title\": \"Group Name is Updated\",\n    \"description\": \"Group Description is Updated\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -191,6 +193,65 @@
 		{
 			"name": "Parameters collections",
 			"item": [
+				{
+					"name": "Parameters - POST Collections",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseBody = JSON.parse(responseBody);",
+									"pm.environment.set(\"collection_id\", responseBody.collectionId);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"{{collection_title}}\",\n    \"description\": \"New Collection\"\n}"
+						},
+						"url": {
+							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups/:group_id/collections",
+							"host": [
+								"{{base_domain}}parameters"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":account_id",
+								"groups",
+								":group_id",
+								"collections"
+							],
+							"variable": [
+								{
+									"key": "account_id",
+									"value": "{{account_id}}"
+								},
+								{
+									"key": "group_id",
+									"value": "{{group_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Parameters - Get Collections",
 					"event": [
@@ -320,7 +381,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Default Collection\",\n    \"description\": \"Default Collection\"\n}",
+							"raw": "{\n    \"title\": \"Updated Collection Title\",\n    \"description\": \"Updated Collection Description\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -556,7 +617,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"id\": \"{{parameter_id}}\",\r\n        \"description\": \"This is a new description\",\r\n        \"metadata\": [\r\n            {\r\n                \"id\": \"isHidden\",\r\n                \"value\": true\r\n            },\r\n            {\r\n                \"id\": \"isArchived\",\r\n                \"value\": true\r\n            },\r\n            {\r\n                \"id\": \"instanceTypeAssociation\",\r\n                \"value\": \"TYPE\"\r\n            },\r\n            {\r\n                \"id\": \"groupBindingId\",\r\n                \"value\": \r\n                    \"{{classification_group_binding_id}}\"\r\n            }\r\n        ]\r\n    }\r\n]"
+							"raw": "[\r\n    {\r\n        \"id\": \"{{parameter_id}}\",\r\n        \"description\": \"This is a new description\",\r\n        \"metadata\": [\r\n            {\r\n                \"id\": \"isHidden\",\r\n                \"value\": true\r\n            },\r\n            {\r\n                \"id\": \"isArchived\",\r\n                \"value\": false\r\n            },\r\n            {\r\n                \"id\": \"instanceTypeAssociation\",\r\n                \"value\": \"TYPE\"\r\n            },\r\n            {\r\n                \"id\": \"groupBindingId\",\r\n                \"value\": \"{{classification_group_binding_id}}\"\r\n            },\r\n            {\r\n                \"id\": \"labelIds\",\r\n                \"value\": [\r\n                    \"{{label_id}}\"\r\n                ]\r\n            },\r\n            {\r\n                \"id\": \"categoryBindingIds\",\r\n                \"value\": [\r\n                    \"{{classification_revit_category_binding_id}}\"\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n]"
 						},
 						"url": {
 							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/groups/:group_id/collections/:collection_id/parameters",
@@ -843,7 +904,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n    {\n        \"name\": \"AU Demo Label -11\",\n        \"description\": \"AU Demo Label\"\n    },\n    {\n        \"name\": \"AU Demo Label -12\",\n        \"description\": \"AU Demo Label\"\n    }\n]"
+							"raw": "[\n    {\n        \"name\": \"My Demo Label -1\",\n        \"description\": \"My Demo Label\"\n    },\n    {\n        \"name\": \"My Demo Label -2\",\n        \"description\": \"My Demo Label\"\n    }\n]"
 						},
 						"url": {
 							"raw": "{{base_domain}}parameters/v1/accounts/:account_id/labels",
@@ -1104,13 +1165,7 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_domain}}parameters/v1/specs",
 							"host": [
@@ -1129,11 +1184,6 @@
 								{
 									"key": "limit",
 									"value": "200",
-									"disabled": true
-								},
-								{
-									"key": "ids",
-									"value": null,
 									"disabled": true
 								}
 							]
@@ -1163,14 +1213,7 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_domain}}parameters/v1/disciplines",
 							"host": [
@@ -1218,13 +1261,7 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_domain}}parameters/v1/units",
 							"host": [
@@ -1243,11 +1280,6 @@
 								{
 									"key": "limit",
 									"value": "200",
-									"disabled": true
-								},
-								{
-									"key": "ids",
-									"value": null,
 									"disabled": true
 								}
 							]
@@ -1278,13 +1310,7 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_domain}}parameters/v1/classifications/groups",
 							"host": [
@@ -1324,6 +1350,7 @@
 									"",
 									"var responseBody = JSON.parse(responseBody);",
 									"pm.environment.set(\"classification_revit_category_id\", responseBody.results[0].id);",
+									"pm.environment.set(\"classification_revit_category_binding_id\", responseBody.results[0].bindingId);",
 									"",
 									""
 								],
@@ -1333,15 +1360,9 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
-							"raw": "{{base_domain}}parameters/v1/classifications/categories",
+							"raw": "{{base_domain}}parameters/v1/classifications/categories?filter[bindable]=true",
 							"host": [
 								"{{base_domain}}parameters"
 							],
@@ -1353,8 +1374,7 @@
 							"query": [
 								{
 									"key": "filter[bindable]",
-									"value": "true",
-									"disabled": true
+									"value": "true"
 								},
 								{
 									"key": "limit",
@@ -1473,10 +1493,6 @@
 							"    return;",
 							"}else{",
 							"    var hub_id = responseBody.data[0].id;",
-							"    // var account_id = hub_id.split('b.').join(\"\").split('-').join('')",
-							"    console.log(\"find hub id: \" + hub_id + \" of hub: \" + pm.environment.get(\"hub_name\"))",
-							"    pm.environment.set(\"hub_id\", hub_id);",
-							"    // pm.environment.set(\"account_id\", account_id);",
 							"    pm.environment.set(\"account_id\", hub_id.split('b.').join(''));",
 							"}",
 							""
