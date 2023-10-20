@@ -34,7 +34,7 @@ This folder contains a Postman Collection that includes all the current Autodesk
     - Auth URL: https://developer.api.autodesk.com/authentication/v2/authorize 
     - Access Token URL: https://developer.api.autodesk.com/authentication/v2/token
 
-### Use the endpoints under `Step 3: Setup the specified ACC Account` to set account id, then you can play with Endpoints as you want.
+- Use the endpoints under `Step 3: Setup the specified ACC Account` to set account id, then you can play with Endpoints as you want.
 
 ## Tips & Tricks
 - These endpoints are mainly used to quick test|verfify based on your good understanding to Autodesk Parameters product and API, due to the API dependency, the individual endpoint may not work, you need to set up the environment variables before running the Postman request.
